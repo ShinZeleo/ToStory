@@ -1,0 +1,90 @@
+.about {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #b2ebf2 0%, #d1fae5 30%, #ffffff 60%);
+  padding-top: 80px;
+  padding-bottom: var(--space-3xl);
+}
+
+.about__container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+
+/* ── Badge ── */
+.about__badge {
+  margin-bottom: var(--space-xl);
+  animation: slideInLeft 0.5s ease forwards;
+}
+
+/* ── Carousel section ── */
+.about__carousel-section {
+  margin-bottom: var(--space-2xl);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* ── Content card ── */
+.about__content-card {
+  background: var(--white);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-2xl);
+  margin-top: var(--space-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.about__content-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--green-900);
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+
+.about__content-text {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--gray-700);
+  text-align: justify;
+  white-space: pre-line;
+}
+
+/* ── Section divider ── */
+.about__divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin: var(--space-2xl) 0;
+}
+
+.about__divider-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--green-300), transparent);
+}
+
+.about__divider-icon {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .about {
+    padding-top: 72px;
+  }
+
+  .about__container {
+    padding: 0 var(--space-md);
+  }
+
+  .about__content-card {
+    padding: var(--space-lg);
+  }
+
+  .about__content-title {
+    font-size: 1.4rem;
+  }
+
+  .about__content-text {
+    font-size: 0.95rem;
+    text-align: left;
+  }
+}

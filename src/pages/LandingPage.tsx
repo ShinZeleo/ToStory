@@ -16,9 +16,9 @@ export default function LandingPage() {
   }));
 
   return (
-    <motion.div 
-      className="landing" 
-      onClick={() => navigate('/menu')} 
+    <motion.div
+      className="landing"
+      onClick={() => navigate('/menu')}
       id="landing-page"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -52,11 +52,6 @@ export default function LandingPage() {
       <div className="landing__hero">
         <div className="landing__book">
           <img src={bookCover} alt="Cerita Rakyat Book Cover" />
-          <div className="landing__book-title">
-            <h1>
-              Cerita<br />Rakyat
-            </h1>
-          </div>
         </div>
         <div className="landing__subtitle">Desa Kakaskasen 2</div>
       </div>

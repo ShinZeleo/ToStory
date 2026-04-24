@@ -1,0 +1,254 @@
+.story-scene {
+  position: relative;
+  width: 100%;
+  min-height: 55vh; /* Tighter normal scene height */
+  display: flex;
+  align-items: center; /* Center to avoid awkward empty top space */
+  /* Removed overflow: hidden so blobs and images don't get hard cuts */
+  background-color: transparent; /* Rely on page background for seamless flow */
+  margin-top: 0; /* Removed negative margin to prevent overlapping clipping */
+  padding: 4rem 0; /* Balanced padding */
+  z-index: 1;
+}
+
+.story-scene:first-of-type {
+  min-height: 85vh; /* Hero section dynamic height */
+  padding-top: 8rem; /* Enough to clear header but not too much */
+  align-items: flex-start; /* Push hero text slightly up */
+}
+
+/* ── Subtle Noise Texture Overlay ── */
+.story-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── Overlay Wrapper (Clips the background image properly) ── */
+.story-scene__overlay-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* ── Background Image (Full overlay) ── */
+.story-scene__image {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  transform-origin: center center;
+}
+
+.story-scene__gradient-overlay {
+  position: absolute;
+  inset: 0;
+  /* Fades from paper color at top -> dark -> paper color at bottom (NO HARD CUTS) */
+  background: linear-gradient(
+    to bottom,
+    #fcf9f2 0%,
+    rgba(0,0,0,0.7) 15%,
+    rgba(0,0,0,0.85) 50%,
+    rgba(0,0,0,0.7) 85%,
+    #fcf9f2 100%
+  );
+  z-index: 1;
+}
+
+.story-scene:first-of-type .story-scene__gradient-overlay {
+  /* Hero section doesn't need paper fade at the very top */
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.5) 0%,
+    rgba(0,0,0,0.8) 50%,
+    rgba(0,0,0,0.6) 80%,
+    #fcf9f2 100%
+  );
+}
+
+/* ── Background Decorations (Organic Blobs) ── */
+.story-scene__organic-blob {
+  position: absolute;
+  width: 80vw;
+  height: 80vw;
+  max-width: 900px;
+  max-height: 900px;
+  /* Stronger blob variation for plain scenes */
+  background: radial-gradient(circle, rgba(135,206,235,0.3) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+  z-index: 0;
+  filter: blur(80px);
+}
+.story-scene__content-wrapper--right ~ .story-scene__organic-blob {
+  left: -15%; top: 5%;
+  background: radial-gradient(circle, rgba(168,224,144,0.35) 0%, rgba(255,255,255,0) 70%);
+}
+.story-scene__content-wrapper:not(.story-scene__content-wrapper--right) ~ .story-scene__organic-blob {
+  right: -15%; bottom: -5%;
+  background: radial-gradient(circle, rgba(230,190,138,0.3) 0%, rgba(255,255,255,0) 70%);
+}
+
+/* ── Content Wrapper ── */
+.story-scene__content-wrapper {
+  position: relative;
+  z-index: 10;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem; /* Reduced vertical padding inside wrapper */
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Reduced gap */
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .story-scene__content-wrapper {
+    flex-direction: row;
+    gap: 3rem;
+    padding: 0 3rem;
+  }
+  .story-scene__content-wrapper--right {
+    flex-direction: row-reverse;
+  }
+}
+
+/* ── Text Box ── */
+.story-scene__text-box {
+  flex: 1;
+  width: 100%;
+  max-width: 520px; /* Reduced for tighter reading */
+}
+.story-scene__content-wrapper--center .story-scene__text-box {
+  text-align: center;
+  max-width: 580px; /* Slightly wider for center */
+  margin: 0 auto;
+}
+
+.story-scene__title {
+  font-size: 2.8rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-display, inherit);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+@media (min-width: 768px) {
+  .story-scene__title { font-size: 4.5rem; }
+}
+
+.story-scene__text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .story-scene__text { font-size: 1.35rem; }
+}
+
+/* Typography styles based on theme */
+.story-scene__text-box--dark .story-scene__title {
+  color: #fff;
+  text-shadow: 0 4px 25px rgba(0,0,0,0.9);
+}
+.story-scene__text-box--dark .story-scene__text {
+  color: #f8fafc;
+  font-weight: 500;
+  text-shadow: 0 4px 16px rgba(0,0,0,1); /* Stronger text shadow */
+}
+
+.story-scene__text-box--light .story-scene__title {
+  color: #1e293b;
+}
+.story-scene__text-box--light .story-scene__text {
+  color: #334155;
+  font-weight: 500;
+}
+
+/* Add a subtle highlight behind light text for contrast */
+.story-scene__text-box--light {
+  position: relative;
+}
+.story-scene__text-box--light::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150%; height: 150%;
+  background: radial-gradient(circle, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Narrative Quotes */
+.story-scene__quote {
+  font-size: 1.5rem; /* Increased emphasis */
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 0.5rem; /* Space between quote and paragraph */
+}
+@media (min-width: 768px) {
+  .story-scene__quote { font-size: 1.7rem; }
+}
+
+.story-scene__text-box--dark .story-scene__quote {
+  color: #86efac;
+  text-shadow: 0 4px 16px rgba(0,0,0,1);
+}
+.story-scene__text-box--light .story-scene__quote {
+  color: #166534;
+}
+
+/* Narrative Paragraphs */
+.story-scene__paragraph {
+  margin: 0;
+}
+
+/* ── Inline Image (Organic Shape) ── */
+.story-scene__image-col {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+.story-scene__inline-image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+}
+.story-scene__inline-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+  animation: organicMorph 10s ease-in-out infinite alternate;
+}
+
+/* Add a soft glow behind inline images */
+.story-scene__inline-image-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  background: inherit;
+  border-radius: inherit;
+  filter: blur(30px);
+  opacity: 0.4;
+  z-index: -1;
+}
+
+@keyframes organicMorph {
+  0%   { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+  50%  { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+}
